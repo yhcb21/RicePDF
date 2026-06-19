@@ -1,0 +1,47 @@
+{
+  "manifest_version": 2,
+  "version": "1.0.0",
+
+  "name": "RicePDF",
+  "short_name": "RicePDF",
+  "description": "Custom PDF reader with diffrent color themes.",
+  "author": "Yash Bhondave",
+  "homepage_url": "https://github.com/yhcb21/RicePDF",
+  "icons": {
+    "48": "images/icon.svg", "96": "images/icon.svg"
+  },
+
+  "permissions": [
+    "webRequest", "webRequestBlocking", "webNavigation", "<all_urls>"
+  ],
+  "background": {
+    "scripts": ["scripts/mv2/background.js"],
+    "type": "module",
+    "persistent": false
+  },
+  "options_ui": {
+    "page": "pages/options.html"
+  },
+  "web_accessible_resources": ["pdfjs/web/viewer.html"],
+  "content_security_policy": "script-src 'self' 'wasm-unsafe-eval'",
+
+  "page_action": {
+    "browser_style": true,
+    "default_icon": "images/link.svg",
+    "default_title": "Get original link to PDF",
+    "default_popup": "pages/popup.html"
+  },
+  "browser_action": {
+    "default_icon": "images/icon.svg",
+    "default_title": "Open PDF Reader in New Tab"
+  },
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "mac": "MacCtrl+Q",
+        "default": "Alt+Q"
+      },
+      "description": "Open PDF Reader in New Tab"
+    }
+  }
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="options.css">
+    <script src="/scripts/options.js" type="module"></script>
+  </head>
+  <body>
+    <div id="extOptions" class="options">
+      <h3>Extension options</h3>
+    </div>
+    <div id="doqOptions" class="options">
+      <h3>Reader mode options</h3>
+    </div>
+    <div id="pdfjsOptions" class="options">
+      <h3>PDF viewer options</h3>
+    </div>
+    <div>
+      <button id="resetOptions" class="optionField"
+              title="Reset all options to their default value">
+        Restore Defaults
+      </button>
+      <span>Defaults restored.</span>
+      <button id="undoReset" class="optionField" disabled
+              title="Undo reset to defaults">
+        Undo
+      </button>
+    </div>
+    <iframe src="/pdfjs/web/viewer.html?file=" hidden></iframe>
+
+    <template id="moreOptions">
+      <fieldset class="more options" disabled>
+        <legend>
+          <label>
+            <input type="checkbox"><span>Show Advanced Options</span>
+          </label>
+        </legend>
+      </fieldset>
+    </template>
+
+    <template id="option">
+      <div>
+        <div class="header"><span></span></div>
+        <div class="caption"></div>
+      </div>
+    </template>
+
+    <template id="toggle">
+      <span class="toggle">
+        <input type="checkbox" id><label for></label>
+      </span>
+  </body>
+</html>

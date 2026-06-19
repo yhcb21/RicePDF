@@ -1,0 +1,110 @@
+
+import { DOQ } from "./config.js";
+import { updatePreference } from "./prefs.js";
+import { wrapCanvas, setCanvasTheme } from "../lib/engine.js";
+import * as Annots from "../lib/annots.js";
+
+function initReader() {
+  const cvsp = HTMLCanvasElement.prototype;
+  const origGetContext = cvsp.getContext;
+  cvsp.getContext = function() {
+    const pageNum = this.closest(".page")?.dataset.pageNumber;
+    if (pageNum) {
+      this.setAttribute("data-cache-id", "page" + pageNum);
+    }
+    return origGetContext.apply(this, arguments);
+  };
+  wrapCanvas();
+  DOQ.initialized = true;
+}
+
+function updateReaderColors(e) {
+  const { config } = DOQ;
+  const picker = config.tonePicker;
+  const pick = picker.readerTone.value;
+  const sel = config.schemeSelector.selectedIndex;
+  const redraw = e?.isTrusted;
+
+  if (pick == 0) {
+    disableReader(redraw);
+    disableFilter();
+  } else if (pick == picker.elements.length - 1) {
+    enableFilter(redraw);
+  } else {
+    const readerTone = setCanvasTheme(sel, +pick - 1);
+    const isDarkTone = readerTone.colors.bg.lightness < 50;
+    config.docStyle.setProperty("--reader-bg", readerTone.background);
+    disableFilter();
+    enableReader(redraw, isDarkTone);
+  }
+  updatePreference("tone", pick);
+}
+
+function enableReader(redraw, isDarkTheme) {
+  const { viewerClassList } = DOQ.config;
+  viewerClassList.add("reader");
+  viewerClassList.toggle("dark", isDarkTheme);
+  DOQ.flags.engineOn = true;
+  if (redraw) {
+    forceRedraw();
+  }
+}
+
+function disableReader(redraw) {
+  const { config, flags } = DOQ;
+  if (!flags.engineOn) {
+    return;
+  }
+  config.viewerClassList.remove("reader", "dark");
+  flags.engineOn = false;
+  if (redraw) {
+    forceRedraw();
+  }
+}
+
+function enableFilter(redraw) {
+  if (DOQ.flags.engineOn) {
+    disableReader(redraw);
+  }
+  DOQ.config.viewerClassList.add("filter");
+}
+
+function disableFilter() {
+  DOQ.config.viewerClassList.remove("filter");
+}
+
+function toggleFlags(e) {
+  const { flags } = DOQ;
+  const flag = e.target.id.replace("Enable", "sOn");
+
+  flags[flag] = e.target.checked;
+  updatePreference(flag);
+  if (flags.engineOn) {
+    forceRedraw();
+  }
+}
+
+function handleAnnotations(e) {
+  const { canvas, annotationEditorLayer, eventBus } = e.source;
+  Annots.monitorAnnotations(canvas?.parentElement);
+  Annots.monitorEditorEvents(annotationEditorLayer.div, eventBus);
+}
+
+function forceRedraw() {
+  const { pdfViewer, pdfThumbnailViewer } = window.PDFViewerApplication;
+  const annotStore = pdfViewer.pdfDocument?.annotationStorage;
+  let annotations;
+
+  try {
+    annotations = Object.values(annotStore.getAll() || {});   /* PDF.js < 5.2 */
+  } catch (e) {
+    annotations = [...annotStore].map(e => e[1]);
+  }
+  annotations.forEach(Annots.redrawAnnotation);
+  pdfViewer._pages.filter(e => e.renderingState).forEach(e => e.reset());
+  pdfThumbnailViewer._thumbnails.filter(e => e.renderingState)
+                                .forEach(e => e.reset());
+  window.PDFViewerApplication.forceRendering();
+}
+
+export { initReader, updateReaderColors, toggleFlags, handleAnnotations };
