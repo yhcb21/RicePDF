@@ -7,11 +7,10 @@ change the PDF's colors) on top, packaged as a Web Extension.
 It also adds some other features like Smart Zoom text and Show/Hide toolbar to
 optimize space and assist reading, especially on smaller devices.
 
-Here is the demo PDF rendered in *Solarized Light* theme:
+Here is the demo PDF rendered in *Solarized* theme:
 
-![Screenshot of RicePDF running in Firefox](docs/grabs/solarized-light.png)
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/45b484a0-ad29-4856-ad92-6ad5259eef9f" />
 
-View [more screenshots](docs/gallery.md#themes).
 
 ## Installation
 
