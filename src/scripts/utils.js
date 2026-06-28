@@ -1,6 +1,6 @@
 /* Choose PDF.js viewer based on user preference */
 export async function chooseViewerPath(defaultPath, latestPath) {
-  const options = JSON.parse(localStorage.getItem("doqment.options"));
+  const options = JSON.parse(localStorage.getItem("ricepdf.options"));
   if (options?.useLatestPdfjs) {
     const versionPath = `${latestPath}VERSION`;
     if (await fetch(versionPath).then(resp => resp.ok).catch(err => false))
@@ -32,7 +32,7 @@ export function addLink(rel, href) {
 
 /* Execute passed callbacks on the event marked by {flag} */
 export function execOnEvent(flag, callbacks) {
-  const event = `doqment.${flag}`
+  const event = `ricepdf.${flag}`
   if (!localStorage.getItem(event)) {
     callbacks.forEach(func => func());
     localStorage.setItem(event, "true");

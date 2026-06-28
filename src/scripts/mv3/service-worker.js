@@ -18,7 +18,7 @@ const autoOpener = "scripts/mv3/content-script.js";
 const viewerCSS = "scripts/mv3/viewer.css";
 
 function getMenuTitle(autoOpenEnabled) {
-  return !autoOpenEnabled ? "Open in do&qment" : "Open in built-in PDF viewer";
+  return !autoOpenEnabled ? "Open in Rice&PDF" : "Open in built-in PDF viewer";
 }
 
 /* Event handlers */
@@ -32,7 +32,7 @@ function createMenus() {
 
   createMenu("open-link", getMenuTitle(false), ["link", "frame"]);
   createOption("allow-all", "Always allow access to sites");
-  createOption("make-default", "Make doqment the default viewer");
+  createOption("make-default", "Make RicePDF the default viewer");
 }
 
 async function handleClick(info, tab) {
@@ -54,7 +54,7 @@ async function handleClick(info, tab) {
 }
 
 /* Open link in the viewer after requesting host permission to it;
-/* if doqment is the default, open in the built-in viewer instead */
+/* if RicePDF is the default, open in the built-in viewer instead */
 async function openLink(url, openerTabId) {
   const permit = { origins: [url] };
   const allowed = await chrome.permissions.request(permit).catch(r => {});
@@ -70,7 +70,7 @@ async function openLink(url, openerTabId) {
       url = new URL(url).searchParams.get("file");
     }
     url = new URL(url);
-    url.searchParams.set("doqment", "ignore");
+    url.searchParams.set("ricepdf", "ignore");
     chrome.tabs.create({ url: url.toString(), openerTabId });
   } else {
     const newTab = await chrome.tabs.create({ url, openerTabId });
@@ -122,7 +122,7 @@ function respond(request, sender, sendResponse) {
       sendResponse({ url: viewerUrl });
     }
   } else if (request.action === "removeViewer") {
-    const func = () => document.getElementById("doqmentViewer").remove();
+    const func = () => document.getElementById("ricepdfViewer").remove();
     chrome.scripting.executeScript({ target: {tabId}, func });
   } else if (request.action === "updateTitle") {
     const func = title => document.title = title;
@@ -209,7 +209,7 @@ function loadViewer(viewerUrl, tabId) {
   const injectFrame = src => {
     const frame = document.createElement("iframe");
     frame.src = src;
-    frame.name = frame.id = "doqmentViewer";
+    frame.name = frame.id = "ricepdfViewer";
     frame.setAttribute("allow", "fullscreen");
     document.body.prepend(frame);
   };
@@ -229,7 +229,7 @@ function loadViewer(viewerUrl, tabId) {
 async function isPdfTab(tabId) {
   const isPdfContent = () => {
     if (document.contentType?.includes("application/pdf"))
-      return document.getElementById("doqmentViewer") == null;
+      return document.getElementById("ricepdfViewer") == null;
   }
   const check = { target: {tabId}, func: isPdfContent };
   const results = await chrome.scripting.executeScript(check).catch(r => {});

@@ -9,12 +9,20 @@ fi
 ln -sf "manifest-${variant#?}.json" src/manifest.json
 
 version=$(awk -F: '/"version"/ {print $2}' src/manifest.json | tr -d ' ,"')
-target=../dist/doqment-v$version-$variant.zip
+target=../dist/RicePDF-v$version-$variant.zip
 
 mkdir -p dist && cd src || exit
 git submodule update --init
 echo 'Packaging to dist/...'
-zip -rq -FS "$target" ./* -x@../.zipexclude -x'pdfjs-latest/*' || exit
+
+exclude_variant=""
+if [ "$variant" = mv2 ]; then
+	exclude_variant="scripts/mv3/*"
+else
+	exclude_variant="scripts/mv2/*"
+fi
+
+zip -rq -FS "$target" ./* -x@../.zipexclude -x'pdfjs-latest/*' -x"$exclude_variant" || exit
 
 pdfjs_SHA() {
 	git -C pdfjs rev-parse $1

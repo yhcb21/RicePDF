@@ -21,7 +21,7 @@ async function activateAndPrompt(message, reply) {
   reply([{ result: window.confirm(message) }]);
 }
 
-if (window.name === "doqmentViewer") {
+if (window.name === "ricepdfViewer") {
   const updateTitle = () => {
     const request = { action: "updateTitle", body: document.title };
     chrome.runtime.sendMessage(request);

@@ -1,12 +1,20 @@
 {
   "manifest_version": 2,
-  "version": "1.0.0",
+  "version": "1.1.0",
 
   "name": "RicePDF",
   "short_name": "RicePDF",
   "description": "Custom PDF reader with diffrent color themes.",
   "author": "Yash Bhondave",
   "homepage_url": "https://github.com/yhcb21/RicePDF",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "ricepdf@yhcb21.github.io",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  },
   "icons": {
     "48": "images/icon.svg", "96": "images/icon.svg"
   },

@@ -1,7 +1,7 @@
 import { getPdfUrl, addLink, execOnEvent, isTouchScreen } from "../utils.js";
 
 /* Rebranding */
-document.title = "doqment PDF Reader";
+document.title = "RicePDF Reader";
 const favIcon = addLink("icon", "/images/icon32.png");
 
 /* Display host website favicon (if available) */
@@ -41,7 +41,7 @@ function removeSoftwareRender() {
     delete doqOptions["softwareRender"];
     localStorage.setItem("doq.options", JSON.stringify(doqOptions));
   }
-  localStorage.removeItem("doqment.update-0.9");
+  localStorage.removeItem("ricepdf.update-0.9");
 }
 
 execOnEvent("init", [selectFirefox, disableAnnotEditors])

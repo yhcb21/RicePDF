@@ -73,7 +73,7 @@ const moreOptions = document.getElementById("moreOptions").content;
 const resetOptions = document.getElementById("resetOptions");
 const undoReset = document.getElementById("undoReset");
 
-const ExtPrefs = new Preferences("doqment.options");
+const ExtPrefs = new Preferences("ricepdf.options");
 const DoqPrefs = new Preferences("doq.options");
 extOptions.addEventListener("change", e => updatePrefs(ExtPrefs, e.target));
 doqOptions.addEventListener("change", e => updatePrefs(DoqPrefs, e.target));

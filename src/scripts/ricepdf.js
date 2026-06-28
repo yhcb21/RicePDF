@@ -1,6 +1,6 @@
 import { addLink, getViewerEventBus, isTouchScreen } from "./utils.js";
 
-const Doqment = {
+const RicePDF = {
   config: {},
   options: { autoToolbar: false },
   scrollDir: -1,
@@ -22,7 +22,7 @@ const Doqment = {
   init() {
     let path = (new URL(import.meta.url)).pathname;
     path = path.substring(0, path.lastIndexOf("/") + 1);
-    addLink("stylesheet", path + "doqment.css");
+    addLink("stylesheet", path + "ricepdf.css");
     this.load();
   },
 
@@ -45,7 +45,7 @@ const Doqment = {
       eventBus.on("documentinit", () => {
         app.pdfLinkService.baseUrl = app.baseUrl;
       });
-      const options = JSON.parse(localStorage.getItem("doqment.options"));
+      const options = JSON.parse(localStorage.getItem("ricepdf.options"));
       if (options?.showPdfTitle === false) {
         eventBus.on("metadataloaded", () => app.setTitleUsingUrl(app.url));
       }
@@ -58,9 +58,23 @@ const Doqment = {
   recreateOpenFile(toolbarButton, name) {
     const openButton = toolbarButton.cloneNode(true);
     openButton.id = "openFile";
+    openButton.classList.remove(name);
+    openButton.classList.add("open-file");
+
+    const updateElement = elem => {
+      for (const attr of elem.attributes) {
+        if (attr.value.includes(name)) {
+          attr.value = attr.value.replaceAll(name, "open-file");
+        }
+      }
+    };
+    updateElement(openButton);
+    for (const child of openButton.querySelectorAll("*")) {
+      updateElement(child);
+    }
+
     toolbarButton.before(openButton);
-    openButton.outerHTML = openButton.outerHTML.replaceAll(name, "open-file");
-    return toolbarButton.previousElementSibling;
+    return openButton;
   },
 
   toggleToolbar() {
@@ -228,7 +242,7 @@ const Doqment = {
 
 /* Initialisation */
 if (document.readyState === "interactive" || document.readyState === "complete") {
-  Doqment.init();
+  RicePDF.init();
 } else {
-  document.addEventListener("DOMContentLoaded", Doqment.init, true);
+  document.addEventListener("DOMContentLoaded", RicePDF.init, true);
 }

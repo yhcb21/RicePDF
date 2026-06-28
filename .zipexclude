@@ -3,7 +3,8 @@
 *web/*.pdf
 *.git*
 pdfjs*.zip
-update.sh
+*update.sh
+**/update.sh
 
 doq/*.md
 doq/*.txt

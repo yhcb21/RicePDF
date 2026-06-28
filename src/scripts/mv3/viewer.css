@@ -3,7 +3,7 @@ html, body {
     margin: 0;
 }
 
-#doqmentViewer {
+#ricepdfViewer {
     appearance: none;
     display: block;
     width: 100vw;
@@ -13,6 +13,6 @@ html, body {
     margin: 0;
 }
 
-#doqmentViewer ~ * {
+#ricepdfViewer ~ * {
     display: none !important;
 }

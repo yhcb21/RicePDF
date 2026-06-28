@@ -14,9 +14,9 @@ if (detectPdfContent()) {
 function detectPdfContent() {
   const url = new URL(window.location.href);
   /* Ignore pages marked by the service worker */
-  if (url.searchParams.get("doqment") === "ignore") {
+  if (url.searchParams.get("ricepdf") === "ignore") {
     return false;
   }
   if (document.contentType?.includes("application/pdf"))
-    return document.getElementById("doqmentViewer") == null;
+    return document.getElementById("ricepdfViewer") == null;
 }

@@ -14,5 +14,5 @@ if (location.protocol === "moz-extension:") {
 } else {
   import("./mv3/page-script.js");
 }
-import "./doqment.js";
+import "./ricepdf.js";
 import "/doq/addon/doq.js";
