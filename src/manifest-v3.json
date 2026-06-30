@@ -17,14 +17,14 @@
     }
   },
   "icons": {
-    "16": "images/icon.svg",
-    "32": "images/icon.svg",
-    "48": "images/icon.svg",
-    "128": "images/icon.svg"
+    "16": "images/icon16.png",
+    "32": "images/icon32.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
   },
 
   "permissions": ["activeTab", "contextMenus", "scripting"],
-  "optional_host_permissions": ["<all_urls>"],
+  "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "scripts/mv3/service-worker.js",
     "type": "module"
@@ -41,7 +41,7 @@
   },
 
   "action": {
-    "default_icon": "images/icon.svg",
+    "default_icon": "images/icon32.png",
     "default_title": "Open in RicePDF"
   },
   "commands": {

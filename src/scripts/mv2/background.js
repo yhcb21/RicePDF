@@ -76,3 +76,13 @@ function getHeader(respHeaders, header) {
   const match = respHeaders.find(h => h.name.toLowerCase() === header);
   return match && match.value.toLowerCase();
 }
+
+browser.runtime.onMessage.addListener((message) => {
+  if (message.action === "download" && message.url) {
+    browser.downloads.download({
+      url: message.url,
+      filename: message.filename || "document.pdf",
+      saveAs: true
+    }).catch(err => console.error("Download failed:", err));
+  }
+});

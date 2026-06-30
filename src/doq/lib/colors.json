@@ -147,5 +147,44 @@
     "accents": [
       "#E67E80", "#A7C080", "#DBBC7F", "#7FBBB3", "#D699B6", "#83C092"
     ]
+  },
+  {
+    "name": "Rosé Pine",
+    "tones": [
+      {
+        "name": "Dark",
+        "background": "#191724",
+        "foreground": "#e0def4"
+      }
+    ],
+    "accents": [
+      "#eb6f92", "#f6c177", "#ebbcba", "#31748f", "#9ccfd8", "#c4a7e7"
+    ]
+  },
+  {
+    "name": "Catppuccin",
+    "tones": [
+      {
+        "name": "Mocha",
+        "background": "#1e1e2e",
+        "foreground": "#cdd6f4"
+      }
+    ],
+    "accents": [
+      "#f38ba8", "#fab387", "#f9e2af", "#a6e3a1", "#89b4fa", "#cba6f7", "#94e2d5"
+    ]
+  },
+  {
+    "name": "Cyberpunk",
+    "tones": [
+      {
+        "name": "Neon",
+        "background": "#000b18",
+        "foreground": "#0abdc6"
+      }
+    ],
+    "accents": [
+      "#ff00ff", "#00ff00", "#ffff00", "#711c91", "#ea00d9", "#0abdc6"
+    ]
   }
 ]

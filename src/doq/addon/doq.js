@@ -42,9 +42,10 @@ function linkCSS(href) {
 }
 
 function installUI(html) {
-  const docFrag = document.createRange().createContextualFragment(html);
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, "text/html");
   const toolbar = document.getElementById("toolbarViewerRight");
-  toolbar.prepend(docFrag.getElementById("toolbarAddon").content);
+  toolbar.prepend(doc.getElementById("toolbarAddon").content);
 }
 
 function load(colorSchemes) {

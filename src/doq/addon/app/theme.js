@@ -49,7 +49,8 @@ function updateColorScheme(e) {
 
 function refreshTonePicker(picker, scheme) {
   const toneWgt = picker.querySelector("template");
-  picker.innerHTML = toneWgt.outerHTML;
+  picker.textContent = "";
+  picker.appendChild(toneWgt);
 
   let i = 0;
   picker.appendChild(cloneWidget(toneWgt, "origTone", "Original", i++));

@@ -162,8 +162,8 @@
 
 /* Icons */
 #viewReader.toolbarButton::before {
-  -webkit-mask-image: url(images/readerIcon.svg);
-  mask-image: url(images/readerIcon.svg);
+  -webkit-mask-image: url("images/brush.svg");
+  mask-image: url("images/brush.svg");
 }
 #tonePicker > :checked + .colorSwatch::before {
   -webkit-mask-image: url(images/checkMark.svg);
